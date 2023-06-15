@@ -47,7 +47,7 @@ pipeline {
     stage('Build Docker Image') {
 
       steps {
-        sh 'docker build -t ABCtechnologies:latest .'
+        sh 'docker build -t 7lawa/devops:latest .'
         sh 'docker tag ABCtechnologies 7lawa/devops:latest'
       }
     }
