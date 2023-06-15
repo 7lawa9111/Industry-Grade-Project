@@ -3,7 +3,7 @@ pipeline {
 
 	
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker_host')
+    DOCKERHUB_CREDENTIALS = credentials('docker')
     REMOTE_SERVER = '52.91.172.107'
     REMOTE_USER = 'dockeradmin' 	  	  
   }
@@ -81,7 +81,7 @@ pipeline {
         script {
           sshagent(credentials: ['docker_host']) {
           sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop ABCtechnologies || true && docker rm ABCtechnologies || true'"
-	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull 7lawa/ABCtechnologies'"
+	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull 7lawa/devops'"
           sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name ABCtechnologies -d -p 8081:8081 7lawa/devops'"
           }
         }
