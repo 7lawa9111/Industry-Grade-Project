@@ -2,9 +2,9 @@ pipeline {
   agent any
 	
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker')
-    REMOTE_SERVER = '3.86.183.227'
-    REMOTE_USER = 'ec2-user' 	  	  
+    DOCKERHUB_CREDENTIALS = credentials('docker_host')
+    REMOTE_SERVER = '52.91.172.107'
+    REMOTE_USER = 'dockeradmin' 	  	  
   }
 	
   // Fetch code from GitHub
@@ -28,7 +28,7 @@ pipeline {
 	    
       post {
         success {
-          archiveArtifacts artifacts: '**/target/*.jar'
+          archiveArtifacts artifacts: '**/target/*.war'
         }
       }
     }
@@ -46,8 +46,8 @@ pipeline {
     stage('Build Docker Image') {
 
       steps {
-        sh 'docker build -t javawebapp:latest .'
-        sh 'docker tag javawebapp 7lawa/devops:latest'
+        sh 'docker build -t ABCtechnologies:latest .'
+        sh 'docker tag ABCtechnologies 7lawa/devops:latest'
       }
     }
 	  
@@ -78,10 +78,10 @@ pipeline {
     stage('Deploy Docker image to AWS instance') {
       steps {
         script {
-          sshagent(credentials: ['ec-2']) {
-          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop javaApp || true && docker rm javaApp || true'"
-	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull 7lawa/devops'"
-          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name javaApp -d -p 8081:8081 7lawa/devops'"
+          sshagent(credentials: ['docker_host']) {
+          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop ABCtechnologies || true && docker rm ABCtechnologies || true'"
+	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull 7lawa/ABCtechnologies'"
+          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name ABCtechnologies -d -p 8081:8081 7lawa/devops'"
           }
         }
       }
