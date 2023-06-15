@@ -1,14 +1,14 @@
 #Define your base image 
-FROM eclipse-temurin:11-jdk-focal 
+FROM tomcat:8-jre8
 
 #Maintainer of this image
 LABEL maintainer="Mohamed Awad" 
 
 #Copying Jar file from target folder                                                                                       
-COPY target/web-services.jar web-services.jar  
+COPY ./webapp.war /usr/local/tomcat/webapps 
 
 #Expose app to outer world on this port                                                                                                                                                                                                                                                                          
-EXPOSE 8081   
+EXPOSE 8090
 
-#Run executable with this command  
-ENTRYPOINT ["java", "-jar", "web-services.jar"]
+
+
