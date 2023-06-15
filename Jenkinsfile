@@ -48,7 +48,7 @@ pipeline {
 
       steps {
         sh 'docker build -t 7lawa/devops:latest .'
-        sh 'docker tag ABCtechnologies 7lawa/devops:latest'
+        sh 'docker tag abctechnologies 7lawa/devops:latest'
       }
     }
 	  
@@ -80,9 +80,9 @@ pipeline {
       steps {
         script {
           sshagent(credentials: ['docker_host']) {
-          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop ABCtechnologies || true && docker rm ABCtechnologies || true'"
+          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop abctechnologies || true && docker rm abctechnologies || true'"
 	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull 7lawa/devops'"
-          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name ABCtechnologies -d -p 8081:8081 7lawa/devops'"
+          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name abctechnologies -d -p 8081:8081 7lawa/devops'"
           }
         }
       }
