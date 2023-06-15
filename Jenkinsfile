@@ -48,7 +48,7 @@ pipeline {
 
       steps {
         sh 'docker build -t 7lawa/devops:latest .'
-        sh 'docker tag abctechnologies 7lawa/devops:latest'
+        //sh 'docker tag abctechnologies 7lawa/devops:latest'
       }
     }
 	  
