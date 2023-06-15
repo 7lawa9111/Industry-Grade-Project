@@ -5,7 +5,7 @@ FROM tomcat:8-jre8
 LABEL maintainer="Mohamed Awad" 
 
 #Copying Jar file from target folder                                                                                       
-COPY target/ABCtechnologies-1.0.war web-services.war 
+COPY target/ABCtechnologies-1.0.war /usr/local/tomcat/ABCtechnologies
 
 #Expose app to outer world on this port                                                                                                                                                                                                                                                                          
 EXPOSE 8090
