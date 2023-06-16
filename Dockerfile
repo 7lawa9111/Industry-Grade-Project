@@ -5,7 +5,7 @@ FROM tomcat:8-jre8
 LABEL maintainer="Mohamed Awad" 
 
 #Copying Jar file from target folder                                                                                       
-COPY target/ABCtechnologies-1.0.war /usr/local/tomcat/ABCtechnologies
+COPY target/ABCtechnologies-1.0.war /usr/local/tomcat/webapps
 
 
 
