@@ -80,7 +80,7 @@ pipeline {
    stage('Deploy to K8 cluster') {
         steps {
          // Run the Ansible playbook locally on the Jenkins machine
-                sh  'ansible-playbook -i /home/dockeradmin/hosts /home/dockeradmin/playbook1.yaml --key-file "/home/jenkins/.ssh/ansible_key"'
+                sh  'ansible-playbook -i /home/dockeradmin/hosts /home/dockeradmin/playbook1.yaml --key-file "/home/dockeradmin/ansible_key"'
 	   }
 	}
   }
