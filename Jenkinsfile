@@ -78,9 +78,11 @@ pipeline {
 	  
    stage('Deploy to K8 cluster') {
         steps {
+		script {
          // Run the Ansible playbook locally on the Jenkins machine
-                sh "ssh -o StrictHostKeyChecking=no 'ansible-playbook -i /home/dockeradmin/hosts /home/dockeradmin/playbook1.yaml --user dockeradmin'"
+                sshCommand remote: remote, command: "ansible-playbook -i /home/dockeradmin/hosts /home/dockeradmin/playbook1.yaml --user dockeradmin -o StrictHostKeyChecking=no"
     	       }
-  	     }
+	   }
+	}
   }
 }
