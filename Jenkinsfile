@@ -3,7 +3,7 @@ pipeline {
 
 	
   environment {
-    //DOCKERHUB_CREDENTIALS = credentials('ansible_key')
+    DOCKERHUB_CREDENTIALS = credentials('docker')
     ANSIBLE_PRIVATE_KEY = credentials('ansible_key')
     //REMOTE_SERVER = '3.89.140.22'
     REMOTE_USER = 'dockeradmin' 	  	  
