@@ -76,16 +76,11 @@ pipeline {
 	  
    // Pull docker image from DockerHub and run in EC2 instance 
 	  
-    stage('Deploy Docker image to AWS instance') {
-      steps {
-        script {
-          sshagent(credentials: ['docker_host']) {
-          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop abctechnologies || true && docker rm abctechnologies || true'"
-	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull 7lawa/devops'"
-          sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name abctechnologies -d -p 8080:8080 7lawa/devops'"
-          }
-        }
-      }
-    }
+   stage('Deploy to K8 cluster') {
+        steps {
+         // Run the Ansible playbook locally on the Jenkins machine
+                sh ''' ansible-playbook -i hosts playbook1.yaml '''
+    	       }
+  	     }
   }
 }
