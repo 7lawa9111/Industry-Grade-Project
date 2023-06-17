@@ -3,8 +3,9 @@ pipeline {
 
 	
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker')
-    REMOTE_SERVER = '3.89.140.22'
+    //DOCKERHUB_CREDENTIALS = credentials('ansible_key')
+    ANSIBLE_PRIVATE_KEY = credentials('ansible_key')
+    //REMOTE_SERVER = '3.89.140.22'
     REMOTE_USER = 'dockeradmin' 	  	  
   }
 	
@@ -78,10 +79,8 @@ pipeline {
 	  
    stage('Deploy to K8 cluster') {
         steps {
-		script {
          // Run the Ansible playbook locally on the Jenkins machine
-                sshCommand remote: remote, command: "ansible-playbook -i /home/dockeradmin/hosts /home/dockeradmin/playbook1.yaml --user dockeradmin -o StrictHostKeyChecking=no"
-    	       }
+                sh  'ansible-playbook -i /home/dockeradmin/hosts --private-key=$ANSIBLE_PRIVATE_KEY /home/dockeradmin/playbook1.yaml'
 	   }
 	}
   }
