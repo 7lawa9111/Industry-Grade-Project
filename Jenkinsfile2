@@ -5,7 +5,7 @@ pipeline {
          stage('Deploy prometheus') {
            steps {
                // Run the Ansible playbook to install prometheus
-                sh  'ansible-playbook -i /var/lib/jenkins/hosts prometheus /var/lib/jenkins/prometheus.yml --key-file "/var/lib/jenkins/ansible_key2"'
+                sh  'ansible-playbook -i /var/lib/jenkins/hosts /var/lib/jenkins/prometheus.yml --key-file "/var/lib/jenkins/ansible_key2"'
                   }
              }
         }
