@@ -1,10 +1,12 @@
 pipeline {
    agent { label 'agent2' }  	  
    
-      stage('Deploy prometheus') {
-        steps {
+      stages {
+         stage('Deploy prometheus') {
+           steps {
                // Run the Ansible playbook to install prometheus
                 sh  'ansible-playbook -i hosts prometheus prometheus.yml --key-file "ansible_key2"'
       }
-   }
+    }
+  }
 }
