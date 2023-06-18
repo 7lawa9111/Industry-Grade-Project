@@ -1,23 +1,10 @@
 pipeline {
-   agent { label 'agent2' }
-
-   environment {
-      DOCKERHUB_CREDENTIALS = credentials('docker')
-      ANSIBLE_PRIVATE_KEY = credentials('ansible_key')
-      REMOTE_USER = 'dockeradmin' 	  	  
-   }
-
-   stages {
-      // ..
-
-      stage('Deploy to K8 cluster') {
-         steps {
-            // Run the Ansible playbook locally on the Jenkins machine
-            withCredentials([file(credentialsId: 'ansible_key', variable: 'ANSIBLE_PRIVATE_KEY')]) {
-               sh 'chmod 400 $ANSIBLE_PRIVATE_KEY'
-               sh 'ansible-playbook -i /home/dockeradmin/hosts /home/dockeradmin/playbook1.yaml --private-key=$ANSIBLE_PRIVATE_KEY'
-            }
-         }
+   agent { label 'agent2' }  	  
+   
+      stage('Deploy prometheus') {
+        steps {
+               // Run the Ansible playbook to install prometheus
+                sh  'ansible-playbook -i hosts prometheus prometheus.yml --key-file "ansible_key2"'
       }
    }
 }
